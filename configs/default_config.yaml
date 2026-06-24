@@ -1,0 +1,34 @@
+# EchoGuard default configuration
+# Override any value by passing --config path/to/custom.yaml to the CLI
+
+# Model paths (relative to project root)
+video_model_path: models/video_model.onnx
+audio_model_path: models/audio_model.onnx
+
+# Detection threshold — combined score above this value triggers deepfake verdict
+detection_threshold: 0.65
+
+# Multimodal fusion weights (must sum to 1.0)
+video_weight: 0.6
+audio_weight: 0.4
+
+# Video analysis settings
+max_frames: 300          # cap analysis at this many frames for long videos
+frame_sample_rate: 5     # analyze every Nth frame (1 = every frame)
+
+# Device settings
+device: cpu              # cpu or cuda
+
+# Logging
+log_level: INFO          # DEBUG, INFO, WARNING, ERROR
+
+# Temporal anomaly detection thresholds
+blink_rate_min: 10       # blinks per minute — below this is suspicious
+blink_rate_max: 30       # blinks per minute — above this is suspicious
+flicker_threshold: 0.15  # normalized pixel variance threshold
+pose_change_threshold: 15.0  # degrees per frame — above this is suspicious
+
+# Audio analysis thresholds
+pitch_flatness_threshold: 0.02   # std dev of pitch in semitones — below this is suspicious
+silence_max_length_ms: 2000      # silence longer than this is suspicious
+clipping_threshold: 0.98         # absolute amplitude above this is clipping
